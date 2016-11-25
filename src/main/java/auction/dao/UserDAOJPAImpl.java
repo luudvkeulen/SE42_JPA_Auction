@@ -14,11 +14,8 @@ public class UserDAOJPAImpl implements UserDAO {
 
     private final EntityManager entityManager;
 
-    //private HashMap<String, User> users;
-
     public UserDAOJPAImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
-        //users = new HashMap<String, User>();
     }
 
     @Override

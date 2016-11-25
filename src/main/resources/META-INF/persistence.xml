@@ -5,10 +5,10 @@
         <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
         <class>auction.domain.User</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://51.255.165.47:3306/jpa"/>
-            <property name="javax.persistence.jdbc.password" value="Fontys@1997"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://51.255.165.47:3306/auction"/>
+            <property name="javax.persistence.jdbc.password" value="Fontys2016"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="jpa"/>
+            <property name="javax.persistence.jdbc.user" value="auction"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="drop-and-create"/>
             <property name="eclipselink.logging.logger" value="DefaultLogger"/>

@@ -7,6 +7,7 @@ import auction.domain.User;
 import auction.dao.UserDAOCollectionImpl;
 import auction.dao.UserDAO;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -17,7 +18,7 @@ public class RegistrationMgr {
     private UserDAOJPAImpl userDAO;
 
     public RegistrationMgr() {
-        userDAO = new UserDAOJPAImpl(entityManagerFactory.createEntityManager());
+        //userDAO = new UserDAOJPAImpl(entityManagerFactory.createEntityManager());
     }
 
     /**
@@ -29,6 +30,8 @@ public class RegistrationMgr {
      * onjuist is ( het bevat geen '@'-teken) wordt null teruggegeven.
      */
     public User registerUser(String email) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        userDAO = new UserDAOJPAImpl(entityManager);
         if (!email.contains("@")) {
             return null;
         }
@@ -37,7 +40,18 @@ public class RegistrationMgr {
             return user;
         }
         user = new User(email);
-        userDAO.create(user);
+
+        entityManager.getTransaction().begin();
+        try {
+            userDAO.create(user);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
+
         return user;
     }
 
@@ -48,13 +62,45 @@ public class RegistrationMgr {
      * e-mailadres of null als zo'n User niet bestaat.
      */
     public User getUser(String email) {
-        return userDAO.findByEmail(email);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        userDAO = new UserDAOJPAImpl(entityManager);
+        entityManager.getTransaction().begin();
+
+        User user = null;
+
+        try {
+            user = userDAO.findByEmail(email);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
+
+        return user;
     }
 
     /**
      * @return Een iterator over alle geregistreerde gebruikers
      */
     public List<User> getUsers() {
-        return userDAO.findAll();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        userDAO = new UserDAOJPAImpl(entityManager);
+        entityManager.getTransaction().begin();
+
+        List<User> users = new ArrayList<>();
+
+        try {
+            users = userDAO.findAll();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
+
+        return users;
     }
 }
