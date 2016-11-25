@@ -26,4 +26,9 @@ public class User implements Serializable {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return (this.email.equals(((User)o).getEmail()));
+    }
 }

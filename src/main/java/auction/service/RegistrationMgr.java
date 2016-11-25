@@ -14,9 +14,7 @@ public class RegistrationMgr {
 
     private UserDAOJPAImpl userDAO;
 
-    public RegistrationMgr() {
-        //userDAO = new UserDAOJPAImpl(entityManagerFactory.createEntityManager());
-    }
+    public RegistrationMgr() {}
 
     /**
      * Registreert een gebruiker met het als parameter gegeven e-mailadres, mits
