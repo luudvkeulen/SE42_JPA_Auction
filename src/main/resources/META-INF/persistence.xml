@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-
-    <persistence-unit name="persistenceUnit">
+    <persistence-unit name="auctionUnit">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
+        <class>auction.domain.User</class>
         <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://51.255.165.47:3306/jpa"/>
+            <property name="javax.persistence.jdbc.password" value="Fontys@1997"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="jpa"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="drop-and-create"/>
             <property name="eclipselink.logging.logger" value="DefaultLogger"/>

@@ -3,21 +3,28 @@ package auction.dao;
 import auction.domain.User;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserDAOJPAImpl implements UserDAO {
 
-    private HashMap<String, User> users;
+    private final EntityManager entityManager;
 
-    public UserDAOJPAImpl() {
-        users = new HashMap<String, User>();
+    //private HashMap<String, User> users;
+
+    public UserDAOJPAImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+        //users = new HashMap<String, User>();
     }
 
     @Override
     public int count() {
-        return users.size();
+        Query q = entityManager.createNamedQuery("User.count", User.class);
+        return ((Long)q.getSingleResult()).intValue();
     }
 
     @Override
@@ -25,7 +32,7 @@ public class UserDAOJPAImpl implements UserDAO {
          if (findByEmail(user.getEmail()) != null) {
             throw new EntityExistsException();
         }
-        users.put(user.getEmail(), user);
+        entityManager.persist(user);
     }
 
     @Override
@@ -33,22 +40,26 @@ public class UserDAOJPAImpl implements UserDAO {
         if (findByEmail(user.getEmail()) == null) {
             throw new IllegalArgumentException();
         }
-        users.put(user.getEmail(), user);
+        entityManager.merge(user);
     }
 
 
     @Override
     public List<User> findAll() {
-        return new ArrayList<User>(users.values());
+        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(User.class));
+        return entityManager.createQuery(cq).getResultList();
     }
 
     @Override
     public User findByEmail(String email) {
-        return users.get(email);
+        Query q = entityManager.createNamedQuery("User.findByEmail", User.class);
+        q.setParameter("email", email);
+        return (User)q.getSingleResult();
     }
 
     @Override
     public void remove(User user) {
-        users.remove(user.getEmail());
+        entityManager.remove(user);
     }
 }
