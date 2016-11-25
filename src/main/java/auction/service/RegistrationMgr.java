@@ -36,12 +36,7 @@ public class RegistrationMgr {
             return null;
         }
 
-        User user = null;
-        try {
-            user = userDAO.findByEmail(email);
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        User user = userDAO.findByEmail(email);
 
         if (user != null) {
             return user;
