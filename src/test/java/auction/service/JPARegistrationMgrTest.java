@@ -3,6 +3,7 @@ package auction.service;
 import auction.domain.User;
 import org.junit.Before;
 import org.junit.Test;
+import util.DatabaseCleaner;
 
 import java.util.List;
 
@@ -11,10 +12,12 @@ import static org.junit.Assert.*;
 public class JPARegistrationMgrTest {
 
     private RegistrationMgr registrationMgr;
+    private final DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
     @Before
     public void setUp() throws Exception {
         registrationMgr = new RegistrationMgr();
+        databaseCleaner.clean();
     }
 
     @Test
