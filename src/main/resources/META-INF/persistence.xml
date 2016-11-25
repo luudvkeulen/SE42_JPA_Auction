@@ -11,7 +11,9 @@
             <property name="javax.persistence.jdbc.user" value="auction"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="drop-and-create"/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="javax.persistence.schema-generation.create-database-schemas"
+                      value="true" />
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.logging.logger" value="DefaultLogger"/>
             <property name="eclipselink.logging.level" value="FINE" />
         </properties>

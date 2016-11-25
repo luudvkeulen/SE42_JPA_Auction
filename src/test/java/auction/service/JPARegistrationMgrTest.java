@@ -19,11 +19,11 @@ public class JPARegistrationMgrTest {
 
     @Test
     public void registerUser() {
-        User user1 = registrationMgr.registerUser("xxx1@yyy");
-        assertTrue(user1.getEmail().equals("xxx1@yyy"));
-        User user2 = registrationMgr.registerUser("xxx2@yyy2");
-        assertTrue(user2.getEmail().equals("xxx2@yyy2"));
-        User user2bis = registrationMgr.registerUser("xxx2@yyy2");
+        User user1 = registrationMgr.registerUser("axxx1@yyy");
+        assertTrue(user1.getEmail().equals("axxx1@yyy"));
+        User user2 = registrationMgr.registerUser("axxx2@yyy2");
+        assertTrue(user2.getEmail().equals("axxx2@yyy2"));
+        User user2bis = registrationMgr.registerUser("axxx2@yyy2");
         assertEquals(user2bis, user2);
         //geen @ in het adres
         assertNull(registrationMgr.registerUser("abc"));
