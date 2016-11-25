@@ -4,9 +4,6 @@ import java.util.*;
 
 import auction.dao.UserDAOJPAImpl;
 import auction.domain.User;
-import auction.dao.UserDAOCollectionImpl;
-import auction.dao.UserDAO;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
