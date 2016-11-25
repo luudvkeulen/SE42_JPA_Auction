@@ -35,7 +35,14 @@ public class RegistrationMgr {
         if (!email.contains("@")) {
             return null;
         }
-        User user = userDAO.findByEmail(email);
+
+        User user = null;
+        try {
+            user = userDAO.findByEmail(email);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         if (user != null) {
             return user;
         }
